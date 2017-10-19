@@ -14,13 +14,16 @@ class NewTodo extends Component {
   handleChange = text => this.setState(prev => ({ newTodo: text }));
 
   addTodo = todo => {
-    this.props.dispatch(addTodo(todo));
-    this.setState(prev => ({ newTodo: "" }));
+    if (todo !== "") {
+      this.props.dispatch(addTodo(todo));
+      this.setState(prev => ({ newTodo: "" }));
+    }
   };
 
   handleEnter = ev => {
-    if (ev.key === "Enter") {
-      this.props.dispatch(addTodo(this.state.newTodo));
+    const { newTodo } = this.state;
+    if (ev.key === "Enter" && newTodo !== "") {
+      this.props.dispatch(addTodo(newTodo));
       this.setState(prev => ({ newTodo: "" }));
     }
   };
